@@ -1,0 +1,313 @@
+
+Lección 19: Módulos
+
+* El objetivo de los módulos es ayudarnos a agrupar componentes y piezas de
+  la aplicación que tienen sentido entre sí
+* Nos permite añadir más componentes para expandir la funcionalidad de la 
+  aplicación de una manera más ordenada, evitando que el módulo app.module.ts
+  empiece a crecer descontroladamente.
+* Logramos lo sgte con los módulos:
+  - Encapsular las cosas (objetos que tienen relación entre sí)
+  - Ayudarnos con la carga peresoza (módulos, compoenentes, etc. son cargados
+    bajo demanda. Sólo si el usuario los va a usar)
+
+01. src/app/heroes. Creamos:
+    heroes.module.ts
+    * Ver código y comentarios
+
+02. app.module.ts. Modificamos:
+    Quitamos de declarations:[] los componentes HeroeComponent y ListadoComponent
+    porque ya están declarados en un módulo creado para todo lo que tenga que
+    ver con heroes: heroes.modulo.ts.
+    Importamos HeroesModule sino app.component.html no reconocerá los selectores de
+    los componentes declarados en HeroesModule (HeroeComponent y ListadoComponent)
+    @NgModule({
+        declarations: [
+            AppComponent,
+            ContadorComponent
+        ],
+        imports: [
+            BrowserModule,
+            HeroesModule
+        ],
+        ...
+    })
+
+================================================================================================================
+
+Lección 20: Módulos - segunda parte
+
+* Hacemos en contador lo mismo que hicimos en heroes
+
+01. src/app/contador. Creamos:
+    contador.module.ts
+    * Ver código y comentarios
+
+02. app.module.ts. Modificamos:
+    @NgModule({
+        declarations: [
+            AppComponent
+        ],
+        imports: [
+            BrowserModule,
+            HeroesModule,
+            ContadorModule
+        ],
+        ...
+    })
+
+================================================================================================================
+================================================================================================================
+
+MODULO 05: EXPANDIENDO NUESTRAS BASES
+
+Lección 04: Módulo DBZ (Dragon Ball Z)
+
+01. Bases. Creamos un módulo:
+    ng generate module dbz
+    o 
+    ng g m dbz 
+
+    Esto nos creará automáticamente la carpeta dbz y dentro nuestro módulo:
+    dbz.module.ts 
+
+    @NgModule({
+        declarations: [],
+        imports: [
+            CommonModule
+        ]
+    })
+    export class DbzModule { }
+    
+02. Bases. Creamos un componente:
+    ng g c dbz/MainPage --skip-tests
+
+    Esto nos creará dentro de la carpeta dbz la carpeta main-page con los 
+    archivos correspondientes al componente MainPage: .css, .html, .ts
+    --skip-tests hará que no nos cree el archivo de pruebas.
+    Además, actualizará dbz.module.ts importando y declarando el componente
+    recién creado (MainPage)
+    @NgModule({
+        declarations: [
+            MainPageComponent
+        ],
+        imports: [
+            CommonModule
+        ]
+    })
+
+03. Bases. Levantamos la aplicación.
+    Recordar que siempre es mejor detener la aplicación (Ctrl + C) cuando se 
+    va a utilizar el angular-cli para crear componentes, servicios, directivas,
+    módulos, etc.
+
+04. Ahora, si queremos utilizar el componente MainPageComponent a traves de su 
+    selector (<app-main-page>) en app.component.html, tenemos que hacaer lo sgte:
+
+    A.  dbz.module.ts. Exportar los compoenentes que queremos que esten disponibles
+        para componentes de otros módulos.
+        @NgModule({
+            declarations: [
+                MainPageComponent
+            ],
+            exports: [
+                MainPageComponent
+            ],
+            ...
+        })
+    
+    B.  app.module.ts. Importamos el módulo que queremos que este disponible
+        para los componentes del módulo AppModule
+        @NgModule({
+            ...,
+            imports: [
+                BrowserModule,
+                HeroesModule,
+                ContadorModule,
+                DbzModule
+            ],
+            ...
+        })
+    
+    C.  app.component.html. Usamos el selector del componente MainPage
+        <app-main-page></app-main-page>
+        Podremos ver el contenido del .html de MainPage
+        Dragon Ball Z
+
+================================================================================================================
+
+Lección 05: Diseño de la pantalla a trabajar
+
+01. main-page.component.html
+    Construcción de la pantalla que vamos a utilizar
+
+================================================================================================================
+
+Lección 06: FormsModule
+
+01. dbz.module.ts. Importamos el módulo FormsModule
+    imports: [
+        CommonModule,
+        FormsModule
+    ]
+
+    Este módulo nos ayudará, entre otras cosas, a que por ejemplo la página
+    no haga un refresh completo y se recarge cuando hacemos un click en un botón
+    y se dispara un evento.
+
+02. main-page.component.html. 
+    En lugar de utilizar el evento submit en el form 
+    <form (submit)="agregar()">
+    Usamos el evento ngSubmit propio de angular
+    <form (ngSubmit)="agregar()">
+
+    Ahora sí, la página no se recarga cuando hacemos click en el botón Agregar.
+    Y podemos ver los mensajes en la consola
+
+================================================================================================================
+
+Lección 07: ngModel
+
+01. main-page.component.ts y main-page,component.html
+    * Ver código y comentarios
+
+================================================================================================================
+
+Lección 08: Mostrar listado de personajes
+
+01. main-page.component.ts y main-page,component.html
+    * Ver código y comentarios
+
+================================================================================================================
+
+Lección 09: Crear componentes hijos
+
+* Hay un nuevo contenedor para esta lección en adelante
+
+01. Bases. Creamos:
+    ng g c dbz/Personajes --skip-tests
+
+    Angular automáticamente declara este componente en dbz.module.ts. Así,
+    MainPageComponent ya conoce a PersonajesComponent y ya puede usarlo.
+
+02. personajes.component.html
+    Ahora esta plantilla contendrá el título Personajes y la ista de personajes
+    *Ver código y comentarios
+
+03. main-page.component.html
+    Usamos una instancia del componente PersonajesComponent.
+    <app-personajes></app-personajes>
+    Ahora será un componente hijo de MainPage
+
+================================================================================================================
+
+Lección 10: @Input
+
+01. personajes.component.ts. Creamos nuestra propiedad de entrada
+    @Input() personajes: Personaje[] = [];
+
+02. personajes.component.html. Usamos el valor de la propiedad @Input para
+    crear la lista de personajes
+    <li *ngFor="let personaje of personajes">
+        {{ personaje.nombre }} - {{ personaje.poder | number}}
+    </li>
+
+03. main-page.component.html. Le asignamos un valor a la propiedad @Input
+    <app-personajes [personajes]= "personajes"></app-personajes>
+
+================================================================================================================
+
+Lección 11: Tarea con inputs y módulos
+
+* Crear nuevo componente Agregar
+* El nuevo componente contendrá <h3>Agregar hasta </form>
+* Mover el objeto nuevoPersonaje y el método Agregar
+* @Input Personajes
+* @Input nuevo
+* <app-agregar [nuevo]="nuevo"></app-agregar>
+
+La idea es agregar un nuevo personaje usando el formulario y que se actualice
+el listado de personajes, solo usando @Inputs, pasando el arreglo de personajes
+de MainPage a una propiedad @Input de AgregarComponent y que este compoenente
+se encargue de todo el trabajo. La lista finalmente se actualizará porque todos
+los objetos en javascript (el arreglo de personajes) se pasan por referencia.
+Pero en realidad no se trabaja así. Hay que usar objetos @Outputs y servicios 
+para centralizar la data con la que se está trabajando
+
+================================================================================================================
+
+Lección 12: @Outputs y EventEmitter
+
+01. main-page.component.html, main-page.component.ts, agregar.component.html
+    agregar.component.ts
+    * Ver código y comentarios
+
+================================================================================================================
+
+Lección 13: Bonus Depuración de aplicación
+
+01. Estando en cualquier file del proyecto (un .ts por ejemplo), presionar
+    F5 y seleccionar "Chrome". Aparecerá el archivo launch.json
+
+02. launch.json
+    En la sección de configuraciones, colocar:
+    "url": "http://localhost:4200"
+    Pues la App esta corriendo en ese puerto.
+
+03. Asegurarnos que la App este corriendo con ng serve
+
+04. Cerramos launch.json y hacemos click en F5.
+    La aplicación abrirá en una instancia especial de Chrome.
+
+05. Para probar, por ejemplo, en VSC vamos a main-page.component.ts y 
+    colocamos un breakpoint en this.personajes.push(personaje);
+
+06. En la instancia especial de Chrome que abrió al hacer click en F5,
+    ingresamos un nuevo personaje y hacemos click en Agregar.
+    Vemos que la ejecución se detuvo donde colocamos el breakpoint tanto
+    en el VSC como en Sources de las herramients para desarrolladores de
+    Chrome.
+
+07. Si nos colocamos con el puntero del mouse encima de las variables
+    podremos ver sus valores. F10 para pasar a la sgte linea, F11 para
+    ingresar a un método, F5 para continuar la ejecución, etc.
+
+================================================================================================================
+
+Lección 14: Servicios 
+
+* Los servicios son Singletons, es deciir se usa una única instancia en
+  todo un módulo (en este caso el módulo dbz)
+
+01. Bases. Creamos un servicio:
+    ng g s dbz/services/dbz --skip-tests
+
+02. dbz.module.ts.
+    Agregamos el servicio al arreglo providers:
+    providers: [
+        DbzService
+    ]
+    Aunque en el curso de Girón no se hizo así y también funcionó
+
+03. main-page.component.ts.
+    En el constructor inyectamos una instancia de nuestro servicio
+
+================================================================================================================
+
+Lección 15 y Lección 16: Centralizar el acceso de los personajes en el servicio Y   
+                         Métodos en el servicio
+
+01. main-page.component.html, main-page.component.ts, personajes.component.ts
+    agregar.component.ts y dbz.service.ts
+    * Ver código y comentarios
+
+    
+
+
+
+
+
+
+
+
+

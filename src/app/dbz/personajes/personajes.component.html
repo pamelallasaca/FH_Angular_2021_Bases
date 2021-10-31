@@ -1,0 +1,11 @@
+<h3>Personajes</h3>
+<hr>
+<ul>
+    <!-- Iteramos el arreglo de personajes definido en el .ts como 
+         una propiedad @Input y cuyo valor será asignado desde el
+         componente padre de PersonajesComponent
+    -->
+    <li *ngFor="let personaje of personajes">
+        {{ personaje.nombre }} - {{ personaje.poder | number}}
+    </li>
+</ul>

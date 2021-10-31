@@ -323,6 +323,61 @@ Bonus: Haciendo respaldo de nuestro proyecto en GitHub
     git branch -M main
     git push -u origin main
     
+NOTA: En adelante, para subir al repositorio en GitHub los cambios hechos en
+      el proyecto, simplemente ejecutar:
+      git add.
+      git commit -m "{comentario}"
+      git push
+
+================================================================================================================
+================================================================================================================
+
+MODULO 06: DESPLIEGUES RAPIDOS A PRODUCCION
+
+Lección 03: Generar build de producción
+
+01. Detenemos la aplicación. En la ventana de comandos:
+    Ctrl + C 
+    
+02. En la ventana de comandos, estando posicionados en el proyecto, ejecutar:
+    ng build --prod  (--prod esta deprecado)
+    Ahora se utiliza solo:
+    ng build
+
+    Esto generará la versión para producción de nuestra aplicación.
+    main.7ac5e1257aee1599dd0a.js      | main          | 161.66 kB
+    polyfills.c265922ee0580b52e516.js | polyfills     |  36.19 kB
+    runtime.d6dbf40dd02040a4953d.js   | runtime       |   1.01 kB
+    styles.6563c9b60d5b1a9ff16a.css   | styles        | 472 bytes
+    
+    La aplicación se encuentra en main.7ac5e1257aee1599dd0a.js 
+    Los polyfills son para asegurarnos que la App funcione en cualquier navegador
+
+    Si vemos en la raíz de nuestro proyecto, apareció la carpeta "dist" que
+    contiene todos los archivos necesarios para que funcione nuestra App.
+
+================================================================================================================
+
+Lección 04: Desplegando en Netlify
+
+01. Abrimos la página de netlify y nos logueamos
+    https://www.netlify.com/
+
+02. En la página https://app.netlify.com/teams/jzo2102/overview
+    arrastramos y soltamos la carpeta en la que se generó nuestro build de 
+    producción
+    Bases/dist/Bases
+
+03. Hacemos click en el enlace que Netlify creó para la App
+    https://modest-bell-8f380e.netlify.app/
+
+04. Probamos... Todo funciona
+
+
+
+
+
+
 
 
 

@@ -301,6 +301,27 @@ Lección 15 y Lección 16: Centralizar el acceso de los personajes en el servici
     agregar.component.ts y dbz.service.ts
     * Ver código y comentarios
 
+================================================================================================================
+
+Bonus: Haciendo respaldo de nuestro proyecto en GitHub
+
+* En la terminal, posicionandose en la carpeta del proyecto (Bases)
+  Ejecutamos los sgtes comandos:
+
+01. Iniciamos un repositorio Git de este proyecto
+    git init
+
+02. Tomamos todos los cambios que hemos hecho y los preparamos
+    git add .
+
+03. Efectuamos los cambios 
+    git commit -m "primer commit"
+
+04. Ejecutamos las sgtes lineas copiadas del sitio de GitHub cuando creamos
+    el repositorio donde subiremos nuestras fuentes
+    git remote add origin https://github.com/gazoo80/FH_Angular_2021_Bases.git
+    git branch -M main
+    git push -u origin main
     
 
 

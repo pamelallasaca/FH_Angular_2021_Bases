@@ -14,13 +14,13 @@ export class AgregarComponent implements OnInit {
     poder: 0
   }; 
 
-  // Declaramos nuestro objeto Emitter
-  //@Output() onNuevoPersonaje: EventEmitter<Personaje>;
+  // --Declaramos nuestro objeto Emitter
+  @Output() onNuevoPersonaje: EventEmitter<Personaje>;
 
   // Inyectamos una instancia del servicio DbzService
   constructor(private dbzService: DbzService) { 
-    // El Emitter emitirá un evento conteniendo un objeto del tipo Personaje
-    //this.onNuevoPersonaje = new EventEmitter<Personaje>();
+    // --El Emitter emitirá un evento conteniendo un objeto del tipo Personaje
+    this.onNuevoPersonaje = new EventEmitter<Personaje>();
   }
 
   ngOnInit(): void {
@@ -31,11 +31,11 @@ export class AgregarComponent implements OnInit {
     if (this.nuevoPersonaje.nombre.trim().length === 0) { return; }
     console.log(this.nuevoPersonaje);
 
-    // Emitimos un evento conteniendo un nuevo personaje
-    //this.onNuevoPersonaje.emit(this.nuevoPersonaje);
+    // --Emitimos un evento conteniendo un nuevo personaje
+    this.onNuevoPersonaje.emit(this.nuevoPersonaje);
 
     // Agregmos el nuevo personaje haciendo uso del servicio
-    this.dbzService.agregarPersonaje(this.nuevoPersonaje);
+    //this.dbzService.agregarPersonaje(this.nuevoPersonaje);
 
     // Para limpiar los campos
     this.nuevoPersonaje = { nombre: '', poder: 0 };

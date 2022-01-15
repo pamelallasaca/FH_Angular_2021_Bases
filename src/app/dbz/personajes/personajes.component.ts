@@ -13,15 +13,18 @@ export class PersonajesComponent implements OnInit {
   // Si quisiéramos que la propiedad tenga otro nombre hacia el exterior y
   // personajes sea solo de uso local, se hace lo sgte: 
   // @Input('data') personajes: any[] = [];
-  //@Input() personajes: Personaje[] = [];
+  // ----PAra
+  @Input() personajes: Personaje[] = [];
 
   // Esta línea es para la lección de servicios, con el arreglo de personajes
   // ya centralizado.
   // Dentro de una propiedad getter obtenemos todos los personajes usando el
   // servicio. En el .html el *ngFor accederá a este getter para iterar.
-  get personajes() {
-    return this.dbzService.personajes;
-  }
+ 
+  //--PAra
+  //get personajes() {
+    //return this.dbzService.personajes;
+  //}
 
   // Inyectamos una instancia del servicio DbzService
   constructor(private dbzService: DbzService) { }

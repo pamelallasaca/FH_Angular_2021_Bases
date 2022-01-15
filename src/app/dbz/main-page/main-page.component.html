@@ -48,17 +48,24 @@
     </div>
 </div>
 
+<div class="row">hola</div>
+<div class="row">como</div>
+<div class="row">estas</div>
 <!-- Contenedor usado en las lecciones 9, 10, 11, 12, 13 -->
 <div class="row">
+    
     <div class="col">
+        
         <!-- Usamos una instancia del componente PersonajesComponent y a 
             su propiedad @Input le asignamos como valor el arreglo de personajes
             definido en el .ts   
         -->
-        <!-- <app-personajes [personajes]= "personajes"></app-personajes> -->
+        <!-- Descomentado -->
+        <app-personajes [personajes]= "personajes"></app-personajes>
         
         <!-- Usando Servicios. Lección 15 y 16 -->
-        <app-personajes></app-personajes>
+        <!-- Comentado para -->
+        <!-- <app-personajes></app-personajes> -->
     </div>
     <div class="col">
         <!-- Usamos una instancia del componente AgregarComponent y asignamos
@@ -67,9 +74,12 @@
              $event representa el vlor contenido en el evnto que emite el Emitter,
              en este caso un nuevo personaje
         -->
-        <!-- <app-agregar (onNuevoPersonaje)="agregarPersonaje($event)"></app-agregar> -->
+        <!-- Descomentado para -->
+        <app-agregar (onNuevoPersonaje)="agregarPersonaje($event)"></app-agregar>
 
         <!-- Usando Servicios. Lección 15 y 16 -->
-        <app-agregar></app-agregar>
+        <!-- Comentado para -->
+        <!-- <app-agregar></app-agregar> -->
     </div>
+    
 </div>
